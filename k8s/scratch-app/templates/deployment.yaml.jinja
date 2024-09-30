@@ -45,15 +45,15 @@ spec:
             - secretRef:
                 name: secretkv
           env:
-          - name: BASE_USERS_DB_ADDRESS
+          - name: {{env_prefix}}_DB_ADDRESS
             value: postgres-svc
           - name: JAEGER_BACKEND
             value: jaeger-svc-collector:4317
-          - name: BASE_USERS_DB_NAME
+          - name: {{env_prefix}}_DB_NAME
             value: svc-db
-          - name: BASE_USERS_DB_USER
+          - name: {{env_prefix}}_DB_USER
             value: service-user
-          - name: BASE_USERS_DB_PASSWORD
+          - name: {{env_prefix}}_DB_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: postgres-svc
