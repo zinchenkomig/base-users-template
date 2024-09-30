@@ -1,0 +1,3 @@
+domain:
+  type: str
+  help: What is your domain name? Format - "yourwebsite.com"

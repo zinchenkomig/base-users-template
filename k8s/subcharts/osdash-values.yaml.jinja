@@ -1,0 +1,10 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: osdash.{{domain}}
+      paths:
+        - path: /
+          backend:
+            serviceName: ""
+            servicePort: ""
+
