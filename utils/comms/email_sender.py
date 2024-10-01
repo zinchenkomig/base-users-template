@@ -44,9 +44,8 @@ class Gmail(EmailSender):
         "https://www.googleapis.com/auth/gmail.settings.basic",
     ]
 
-    def __init__(self, token: str, from_: str):
+    def __init__(self, token: str):
         self._token = token
-        self._from = from_
         token_dict = json.loads(token)
         self._creds = Credentials.from_authorized_user_info(token_dict, self._scopes)
         self._service = build("gmail", "v1", credentials=self._creds)
@@ -75,7 +74,6 @@ class Gmail(EmailSender):
         message = MIMEText(message_text, 'html')
 
         message["To"] = to
-        message["From"] = self._from
         message["Subject"] = subject
 
         # encoded message
@@ -90,14 +88,3 @@ class Gmail(EmailSender):
             .execute()
         )
         return send_message
-
-    def send_with_retries(self, to: str, subject: str, message_text: str, retries: int = 3):
-        for i in range(retries):
-            try:
-                return self.send(to, subject, message_text)
-            except HttpError as err:
-                logging.warning(f"Error while sending message to {to}. "
-                                f"Subject: {subject}. "
-                                f"Error: {str(err)}. "
-                                f"Attempt: {i}")
-        return None

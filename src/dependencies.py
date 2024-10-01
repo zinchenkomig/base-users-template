@@ -31,7 +31,7 @@ def get_sync_session():
 
 def get_email_sender():
     if settings.IS_PROD:
-        return comms.Gmail(token=settings.GMAIL_API_TOKEN, from_="zinchenkomig.sup@gmail.com")
+        return comms.Gmail(token=settings.GMAIL_API_TOKEN)
     return comms.MockSender()
 
 
