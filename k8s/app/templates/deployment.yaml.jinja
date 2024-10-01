@@ -45,19 +45,7 @@ spec:
             - secretRef:
                 name: secretkv
           env:
-          - name: {{env_prefix}}_DB_ADDRESS
-            value: postgres-svc
-          - name: JAEGER_BACKEND
-            value: jaeger-svc-collector:4317
-          - name: {{env_prefix}}_DB_NAME
-            value: svc-db
-          - name: {{env_prefix}}_DB_USER
-            value: service-user
-          - name: {{env_prefix}}_DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: postgres-svc
-                key: password
+            {{- toYaml .Values.env | nindent 12 -}}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:

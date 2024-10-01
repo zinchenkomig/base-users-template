@@ -50,6 +50,21 @@ service:
   port: 80
   targetPort: 8000
 
+env:
+  - name: {{env_prefix}}_DB_ADDRESS
+    value: postgres-svc
+  - name: JAEGER_BACKEND
+    value: jaeger-svc-collector:4317
+  - name: {{env_prefix}}_DB_NAME
+    value: svc-db
+  - name: {{env_prefix}}_DB_USER
+    value: service-user
+  - name: {{env_prefix}}_DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: postgres-svc
+        key: password
+
 ingress:
   enabled: true
   annotations:
