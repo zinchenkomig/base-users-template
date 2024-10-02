@@ -11,7 +11,7 @@ Now you can initialize your project.
 ```
 mkdir myproject
 cd myproject
-copier copy git@github.com:zinchenkomig/base-users-template.git .
+copier copy https://github.com/zinchenkomig/base-users-template.git .
 ```
 It will ask you to fill data for the project templates.
 Now your template is good to go.
