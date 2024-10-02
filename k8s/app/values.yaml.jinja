@@ -51,9 +51,17 @@ service:
   targetPort: 8000
 
 env:
+  - name: {{ env_prefix }}_BUCKET
+    value: svc-buck
+  - name: {{ env_prefix }}_FRONTEND_URL
+    value: https://{{domain}}
+  - name: {{ env_prefix }}_IS_PROD
+    value: "1"
+  - name: {{ env_prefix }}_S3_ENDPOINT
+    value: s3.{{ domain }}
   - name: {{env_prefix}}_DB_ADDRESS
     value: postgres-svc
-  - name: JAEGER_BACKEND
+  - name: {{ env_prefix }}_JAEGER_BACKEND
     value: jaeger-svc-collector:4317
   - name: {{env_prefix}}_DB_NAME
     value: svc-db

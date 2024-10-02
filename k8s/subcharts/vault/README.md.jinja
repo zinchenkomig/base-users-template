@@ -1,11 +1,15 @@
-Steps:
-
+# Set Up Vault
+You must be at vault directory to run the tutorial.
+```
+cd k8s/subcharts/vault
+```
 1. Install vault with helm
+```bash
 helm install vault hashicorp/vault --values vault-values.yaml
+```
 
-2. Initialize vault if needed and unseal it.
+2. Initialize vault if needed and unseal it
 
-Initialization:
 ```bash
 kubectl exec --stdin=true --tty=true vault-0 -- vault operator init \
     -key-shares=1 \
@@ -15,12 +19,12 @@ kubectl exec --stdin=true --tty=true vault-0 -- vault operator init \
 
 kubectl exec --stdin=true --tty=true vault-0 -- vault operator unseal <unseal-token>
 ```
-Vault Unsealed
+
 3. Initialize role with policy
 First run:
 
 ```bash
-kubectl exec --stdin=true --tty=true vault-0 -- /bin/sh
+kubectl exec --stdin=true --tty=true vault-0 -- env PASS_ENCODING=$(openssl rand -hex 32) /bin/sh
 ```
 
 Then inside the vault shell login with root token
@@ -46,12 +50,15 @@ vault write auth/kubernetes/role/k8s_auth_role \
 	policies=dev \
 	audience=vault \
 	ttl=24h
+vault kv put -mount=main {{ project_name|lower }} {{env_prefix}}_PASS_ENCODING_SECRET=$PASS_ENCODING
 exit
 ```
 
 
 4. Now we need to install the vault-secrets-operator
+```bash
 helm install vault-secrets-operator hashicorp/vault-secrets-operator --values vault-secrets-operator-values.yaml
+```
 5. Add service account for vault-secrets-operator to authenticate into vault and read secrets
 
 ```bash
@@ -59,4 +66,7 @@ kubectl apply -f vault-auth-static.yaml
 kubectl apply -f vault-static-secret.yaml
 ```
 
-Thats it, you should now have a secretkv Kubernetes secrets 
+6. Now you can login to your vault UI at http://vault.{{domain}} using your root token from `cluster_keys.json`.
+7. You can now store secrets at main/{{ project_name|lower }} and they will be automatically sent to secretkv Kubernetes Secrets.
+By default your backend application uses the contents of this Kubernetes Secret and mounts it as env variables.
+

@@ -1,19 +1,12 @@
 .PHONY : all uninstall-all vault pg grafana jaeger
 
-all: pg grafana prometheus jaeger opensearch fluentbit
+all: pg grafana prometheus jaeger opensearch opensearch-dash minio fluentbit
 
-uninstall-all:
+clean:
 	helm uninstall postgres;
 	helm uninstall grafana;
 	helm uninstall jaeger;
 	helm uninstall prometheus;
-
-vault:
-	helm upgrade -i vault hashicorp/vault -f vault/vault-values.yaml
-
-vault-operator:
-	helm pull hashicorp/vault-secrets-operator --version 0.6.0
-	helm upgrade -i vault-secrets-operator vault-secrets-operator-0.6.0.tgz --values vault/vault-secrets-operator-values.yaml
 
 pg:
 	helm upgrade postgres bitnami/postgresql -i --version 15.2.9 -f postgres-values.yaml
@@ -43,7 +36,6 @@ repos:
 	helm repo add fluent https://fluent.github.io/helm-charts
 	helm repo add prometheus-community https://prometheus-community.github.io/helm-charts;
 	helm repo add grafana https://grafana.github.io/helm-charts;
-	helm repo add hashicorp https://helm.releases.hashicorp.com;
 	helm repo add bitnami https://charts.bitnami.com/bitnami;
 	helm repo add jaegertracing https://jaegertracing.github.io/helm-charts;
 	helm repo add hashicorp https://helm.releases.hashicorp.com
@@ -51,3 +43,6 @@ repos:
 certs:
 	helm install   cert-manager jetstack/cert-manager   --namespace cert-manager   --create-namespace   --version v1.14.5   --set installCRDs=true
 	kubectl apply -f certs/issuer-prod.yaml
+
+grafana-init:
+	python3 grafana/init_grafana.py
