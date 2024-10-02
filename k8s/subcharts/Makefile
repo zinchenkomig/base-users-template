@@ -39,6 +39,7 @@ repos:
 	helm repo add bitnami https://charts.bitnami.com/bitnami;
 	helm repo add jaegertracing https://jaegertracing.github.io/helm-charts;
 	helm repo add hashicorp https://helm.releases.hashicorp.com
+	helm repo add opensearch https://opensearch-project.github.io/helm-charts
 
 certs:
 	helm install   cert-manager jetstack/cert-manager   --namespace cert-manager   --create-namespace   --version v1.14.5   --set installCRDs=true
