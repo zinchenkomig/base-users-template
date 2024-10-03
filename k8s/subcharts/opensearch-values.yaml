@@ -1,6 +1,7 @@
 fullnameOverride: "opensearch-cluster-master"
 
 master:
+  heapSize: "512m"
   masterOnly: false
   replicaCount: 1
 
