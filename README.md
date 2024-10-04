@@ -63,3 +63,8 @@ make grafana-init
 - `KUBECONFIG` - copy it from the machine where your kuber is located and replace the 127.0.0.1 to the static IP of your kuber machine
 - `DOCKER_USERNAME`
 - `DOCKER_PASSWORD`
+
+You also need to make a kubernetes secret with your docker credentials:
+```
+kubectl create secret docker-registry image-secrets --docker-server={{custom_container_registry}} --docker-username=<username> --docker-password=<password>
+```
