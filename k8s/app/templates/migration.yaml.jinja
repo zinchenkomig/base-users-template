@@ -9,7 +9,7 @@ spec:
   template:
     spec:
       imagePullSecrets:
-        - name: yr-key
+        - name: image-secrets
       containers:
       - name: migration 
         image: {{image_name}}:latest
@@ -17,6 +17,8 @@ spec:
           - secretRef:
               name: secretkv
         env:
+        - name: {{env_prefix}}_PASS_ENCODING_SECRET
+          value: 95d6ad8f6a64cd25f501488b8e773bac33746934074397b798f002e93fb6a42e
         - name: {{env_prefix}}_DB_ADDRESS
           value: postgres-svc
         - name: JAEGER_BACKEND
