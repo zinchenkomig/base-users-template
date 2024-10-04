@@ -13,7 +13,7 @@ image:
 imagePullSecrets:
   - name: yr-key
 nameOverride: ""
-fullnameOverride: {{ project_name ~ '-app'|replace("_", "-") }}
+fullnameOverride: {{ project_name |replace("_", "-") ~ '-app' }}
 
 serviceAccount:
   # Specifies whether a service account should be created

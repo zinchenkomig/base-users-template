@@ -83,7 +83,7 @@ jobs:
       - name: deploy
         uses: 'deliverybot/helm@v1'
         with:
-          release: '{{ project_name ~ '-app'|replace("_", "-") }}'
+          release: '{{ project_name |replace("_", "-") ~ '-app'  }}'
           track: canary
           namespace: 'default'
           chart: 'k8s/app'
