@@ -5,7 +5,7 @@
 replicaCount: 3
 
 image:
-  repository: cr.yandex/crp14m9keoja3jtgii9e/zinchenkomig/base_users
+  repository: {{ image_name }}
   pullPolicy: Always
   # Override the image tag whose default is the chart appVersion.
   tag: "latest"

@@ -1,6 +1,6 @@
 .PHONY : all uninstall-all vault pg grafana jaeger
 
-all: pg grafana prometheus jaeger opensearch opensearch-dash minio fluentbit
+all: pg grafana prometheus jaeger opensearch minio fluentbit
 
 clean:
 	helm uninstall postgres;
@@ -25,9 +25,6 @@ fluentbit:
 
 opensearch:
 	helm upgrade osearch bitnami/opensearch -i -f opensearch-values.yaml
-
-opensearch-dash:
-	helm upgrade os-dashboard opensearch/opensearch-dashboards -i -f osdash-values.yaml
 
 minio:
 	helm upgrade minio oci://registry-1.docker.io/bitnamicharts/minio -i -f minio-values.yaml

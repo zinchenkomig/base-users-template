@@ -1,9 +1,16 @@
 fullnameOverride: "opensearch-cluster-master"
 
 master:
-  heapSize: "512m"
   masterOnly: false
   replicaCount: 1
+  heapSize: "512m"
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "500m"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
 
 ingest:
   enabled: false
@@ -23,15 +30,12 @@ security:
     restEncryption: true
 
 dashboards:
+  enabled: true
+  ingress:
+    enabled: true
+    hostname: "osdash.{{domain}}"
   password: ""
 
-resources:
-  requests:
-    memory: "1Gi"
-    cpu: "500m"
-  limits:
-    memory: "3Gi"
-    cpu: "1"
 
 podAnnotations:
   fluentbit.io/exclude: "true"

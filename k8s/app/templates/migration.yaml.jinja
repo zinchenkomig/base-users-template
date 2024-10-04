@@ -12,7 +12,7 @@ spec:
         - name: yr-key
       containers:
       - name: migration 
-        image: cr.yandex/crp14m9keoja3jtgii9e/zinchenkomig/base_users:latest
+        image: {{image_name}}:latest
         envFrom:
           - secretRef:
               name: secretkv
