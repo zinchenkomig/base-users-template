@@ -81,10 +81,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: deploy
-        uses: 'deliverybot/helm@v1'
+        uses: 'vimeda/helm@v1.7.0'
         with:
           release: '{{ project_name |replace("_", "-") ~ '-app'  }}'
-          track: canary
           namespace: 'default'
           chart: 'k8s/app'
           token: '${% raw %}{{ github.token }}{% endraw %}'
