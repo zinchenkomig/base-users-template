@@ -9,7 +9,7 @@ project_name:
 env_prefix:
   type: str
   help: Prefix for your environment variables. PREFIX_(DB_PASSWORD)
-  default: "{{project_name|upper|replace("-", "_")}}"
+  default: "{{project_name|upper|replace('-', '_')}}"
 
 email:
   type: str
