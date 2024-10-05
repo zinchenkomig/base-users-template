@@ -20,7 +20,7 @@ from starlette_exporter import PrometheusMiddleware, handle_metrics
 
 from conf import settings
 
-app = FastAPI(title=settings.APP_NAME, version='0.1.1')
+app = FastAPI(title=settings.APP_NAME, version='0.1.0')
 
 app.add_middleware(
     CORSMiddleware,
