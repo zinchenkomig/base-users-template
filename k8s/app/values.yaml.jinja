@@ -85,7 +85,7 @@ ingress:
     - host: api.{{domain}}
       paths:
         - path: /
-          serviceName: bu
+          serviceName: {{ project_name | lower |replace("_", "-") ~ '-app' }}
           servicePort: 80
           pathType: ImplementationSpecific
 
