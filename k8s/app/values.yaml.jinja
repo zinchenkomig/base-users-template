@@ -13,7 +13,7 @@ image:
 imagePullSecrets:
   - name: image-secrets
 nameOverride: ""
-fullnameOverride: {{ project_name |replace("_", "-") ~ '-app' }}
+fullnameOverride: {{ project_name | lower |replace("_", "-") ~ '-app' }}
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -49,6 +49,8 @@ service:
   type: ClusterIP
   port: 80
   targetPort: 8000
+
+secretEnv: {{project_name|lower|replace('_', '-') ~ '-secrets'}}
 
 env:
   - name: {{ env_prefix }}_BUCKET

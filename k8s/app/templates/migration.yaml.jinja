@@ -15,7 +15,7 @@ spec:
         image: {{image_name}}:latest
         envFrom:
           - secretRef:
-              name: secretkv
+              name: {{project_name|lower|replace('_', '-') ~ '-secrets'}}
         env:
         - name: {{env_prefix}}_PASS_ENCODING_SECRET
           value: 95d6ad8f6a64cd25f501488b8e773bac33746934074397b798f002e93fb6a42e

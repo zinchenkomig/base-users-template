@@ -83,7 +83,7 @@ jobs:
       - name: deploy
         uses: 'vimeda/helm@v1.7.0'
         with:
-          release: '{{ project_name |replace("_", "-") ~ '-app'  }}'
+          release: '{{ project_name | lower | replace("_", "-") ~ '-app'  }}'
           namespace: 'default'
           chart: 'k8s/app'
           token: '${% raw %}{{ github.token }}{% endraw %}'
